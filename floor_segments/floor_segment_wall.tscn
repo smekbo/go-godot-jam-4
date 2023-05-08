@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://ckubxqbweif5p"]
+
+[ext_resource type="Script" path="res://floor_segments/floor_segment.gd" id="1_ij04s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_axllg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kqy48"]
+material = SubResource("StandardMaterial3D_axllg")
+size = Vector3(12, 40, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rmgvv"]
+points = PackedVector3Array(6, 5, 0.5, 6, 5, -0.5, -6, 5, 0.5, 6, -5, 0.5, 6, -5, -0.5, -6, 5, -0.5, -6, -5, 0.5, -6, -5, -0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ik21h"]
+size = Vector3(12, 0.25, 30)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3y6a0"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mvw6u"]
+width = 20
+height = 20
+noise = SubResource("FastNoiseLite_3y6a0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4whw"]
+albedo_texture = SubResource("NoiseTexture2D_mvw6u")
+
+[sub_resource type="BoxMesh" id="BoxMesh_njis5"]
+material = SubResource("StandardMaterial3D_j4whw")
+size = Vector3(12, 0.25, 30)
+
+[node name="floor-segment" type="PathFollow3D"]
+script = ExtResource("1_ij04s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 25)
+mesh = SubResource("BoxMesh_kqy48")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 25)
+shape = SubResource("ConvexPolygonShape3D_rmgvv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+shape = SubResource("BoxShape3D_ik21h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+mesh = SubResource("BoxMesh_njis5")
+skeleton = NodePath("../../Camera3D")
+
+[node name="connecting_point" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+gizmo_extents = 1.0

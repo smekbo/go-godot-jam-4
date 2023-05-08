@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs2usb0243pg4"]
+
+[ext_resource type="Script" path="res://floor_generator.gd" id="1_rnltg"]
+
+[sub_resource type="Curve3D" id="Curve3D_1fqin"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, -100, 0, 0, 0, 0, 0, 0, 0, 0, 300, -145.563, -497.542, -187.71, 145.563, 497.542, 187.71, 200, 500, 1000),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[node name="floor-generator" type="Node3D"]
+script = ExtResource("1_rnltg")
+SPEED = 200.0
+
+[node name="active" type="Path3D" parent="."]
+curve = SubResource("Curve3D_1fqin")
+
+[node name="pool" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0)

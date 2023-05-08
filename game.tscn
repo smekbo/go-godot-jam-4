@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://w3wfblq3djil"]
+
+[ext_resource type="PackedScene" uid="uid://daj12ng32yjow" path="res://player.tscn" id="1_enlpe"]
+[ext_resource type="PackedScene" uid="uid://bs2usb0243pg4" path="res://floor_generator.tscn" id="2_ek4qi"]
+
+[sub_resource type="Environment" id="Environment_s4hbl"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="game" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s4hbl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4.44155, 37.2545)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.766044, -0.133643, 0.628741, 0, 0.978148, 0.207912, -0.642788, 0.15927, -0.749305, 5, 4, 0)
+
+[node name="player" parent="." instance=ExtResource("1_enlpe")]
+transform = Transform3D(-1, -2.26267e-08, -8.44439e-08, 0, 0.965926, -0.258819, 8.74228e-08, -0.258819, -0.965926, -0.345995, 1.11854, 4.34771)
+
+[node name="floor-generator" parent="." instance=ExtResource("2_ek4qi")]
